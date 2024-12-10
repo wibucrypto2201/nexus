@@ -30,6 +30,15 @@ warning_msg() {
     echo -e "${YELLOW}$1${NC}"
 }
 
+# Check command execution status
+check_status() {
+    if [ $? -eq 0 ]; then
+        success_msg "$1"
+    else
+        handle_error "$2"
+    fi
+}
+
 # Check if script is run as root
 if [[ $EUID -ne 0 ]]; then
     handle_error "This script must be run as root. Please use sudo ./install_nexus.sh"
