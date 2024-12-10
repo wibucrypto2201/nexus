@@ -57,6 +57,11 @@ echo
 echo "Welcome to WibuCrypto Validator Setup!"
 echo
 
+# Create the .nexus directory if it doesn't exist
+info_msg "Ensuring ~/.nexus directory exists..."
+mkdir -p ~/.nexus
+check_status "Directory ~/.nexus created or already exists" "Failed to create ~/.nexus directory"
+
 # Update system packages
 info_msg "Updating system packages..."
 sudo apt update && sudo apt upgrade -y
@@ -116,8 +121,9 @@ while true; do
         continue
     fi
     
+    # Write the Prover ID to the ~/.nexus directory
     echo "$PROVER_ID" > ~/.nexus/prover-id
-    success_msg "Prover ID saved successfully"
+    check_status "Prover ID saved successfully" "Failed to save Prover ID"
     break
 done
 
